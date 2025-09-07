@@ -7,9 +7,11 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "n8n"
+    "start": "node index.js",
+    "n8n": "n8n"
   },
   "dependencies": {
+    "dotenv": "^16.6.1",
     "n8n": "^1.109.2"
   }
 }
