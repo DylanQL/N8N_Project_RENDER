@@ -1,0 +1,15 @@
+{
+  "name": "n8n_project",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Angelo Dylan",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "n8n"
+  },
+  "dependencies": {
+    "n8n": "^1.109.2"
+  }
+}
