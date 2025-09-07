@@ -3,9 +3,36 @@ require('dotenv').config();
 const { spawn } = require('child_process');
 const https = require('https');
 const http = require('http');
+const { exec } = require('child_process');
 
 // URL a la que enviar pings (desde .env)
 const pingUrl = process.env.PING_URL || 'https://example.com';
+// URL local de n8n
+const n8nLocalUrl = 'http://localhost:5678';
+
+// Función para abrir el navegador
+function openBrowser(url) {
+  console.log(`Abriendo navegador en ${url}...`);
+  
+  // Detectar el sistema operativo para usar el comando correcto
+  const platform = process.platform;
+  let command;
+  
+  if (platform === 'win32') {
+    command = `start ${url}`;
+  } else if (platform === 'darwin') {
+    command = `open ${url}`;
+  } else {
+    // Linux y otros sistemas
+    command = `xdg-open ${url}`;
+  }
+  
+  exec(command, (error) => {
+    if (error) {
+      console.error(`No se pudo abrir el navegador: ${error.message}`);
+    }
+  });
+}
 
 // Inicia n8n como un proceso hijo
 function startN8n() {
@@ -44,6 +71,11 @@ function sendPing() {
 
 // Inicia n8n
 const n8nProcess = startN8n();
+
+// Espera 5 segundos para que n8n se inicie antes de abrir el navegador
+setTimeout(() => {
+  openBrowser(n8nLocalUrl);
+}, 5000);
 
 // Envía un ping cada 5 segundos
 const pingInterval = setInterval(sendPing, 5000);

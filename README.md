@@ -7,6 +7,7 @@ Este proyecto está diseñado para desplegar [n8n](https://n8n.io/) en la plataf
 - Despliegue de n8n en Render
 - Sistema automático de pings cada 5 segundos para mantener la instancia activa
 - Configuración sencilla a través de variables de entorno
+- Apertura automática del navegador en la interfaz de n8n al iniciar
 
 ## Requisitos
 - Node.js
@@ -44,6 +45,7 @@ npm start
 Este comando:
 1. Inicia el servidor n8n
 2. Comienza a enviar pings a la URL configurada cada 5 segundos
+3. Abre automáticamente el navegador en `http://localhost:5678` para acceder a la interfaz de n8n
 
 Si solo quieres ejecutar n8n sin el servicio de ping:
 
@@ -54,7 +56,8 @@ npm run n8n
 ## Cómo funciona
 - El script principal (`index.js`) inicia n8n como un proceso hijo
 - Simultáneamente, configura un intervalo para enviar peticiones HTTP a la URL especificada en el archivo `.env`
-- Estos pings periódicos mantienen la instancia de Render activa, evitando que entre en modo de suspensión por inactividad
+- Después de 5 segundos, abre automáticamente el navegador en `http://localhost:5678` para acceder a la interfaz de n8n
+- Los pings periódicos mantienen la instancia de Render activa, evitando que entre en modo de suspensión por inactividad
 - El manejo adecuado de señales garantiza que tanto n8n como el servicio de ping se detengan correctamente cuando la aplicación se cierra
 
 ## Despliegue en Render
